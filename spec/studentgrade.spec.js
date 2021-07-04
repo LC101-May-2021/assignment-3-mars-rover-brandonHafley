@@ -11,8 +11,7 @@ describe("GRADING TEST: ", function() {
 
   it ("Correct number of passing specs", function() {
      expect(studentSpecs.length).toEqual(13);
-     for (let i = 0; i < studentSpecs.length; i++)
-     {
+     for (let i = 0; i < studentSpecs.length; i++) {
        expect(studentSpecs[i].status).toEqual("passed");
        expect(studentSpecs[i].passedExpectations.length).toBeGreaterThanOrEqual(1);
      }
