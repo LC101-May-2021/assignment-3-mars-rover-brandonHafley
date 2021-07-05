@@ -17,8 +17,7 @@ describe("Rover class", function() {
 
     it("response returned by receiveMessage contains name of message", () => {
         let rover = new Rover(100);
-        let obj = new Message("New message");
-        let response = rover.receiveMessage(obj);
+        let response = rover.receiveMessage(new Message("New message"));
         expect(response.message).toEqual("New message");
     });
 
@@ -31,8 +30,7 @@ describe("Rover class", function() {
 
     it("responds correctly to status check command", () => {
         let rover = new Rover(100);
-        let message = new Message("Checking status", [new Command("STATUS_CHECK")]);
-        let response = rover.receiveMessage(message);
+        let response = rover.receiveMessage(new Message("Checking status", [new Command("STATUS_CHECK")]));
         expect(response.results[0].roverStatus.mode).toEqual("NORMAL");
         expect(response.results[0].roverStatus.generatorWatts).toEqual(110);
         expect(response.results[0].roverStatus.position).toEqual(100);
@@ -48,16 +46,14 @@ describe("Rover class", function() {
 
     it("responds with false completed value when attempting to move in LOW_POWER mode", () => {
         let rover = new Rover(100, "LOW_POWER");
-        let message = new Message("Moving to position", [new Command("MOVE", 120)]);
-        let response = rover.receiveMessage(message);
+        let response = rover.receiveMessage(new Message("Moving to position", [new Command("MOVE", 120)]));
         expect(response.results[0].completed).toBeFalse();
         expect(rover.position).toEqual(100);
     });
 
     it("responds with position for move command", () => {
         let rover = new Rover(100);
-        let message = new Message("Moving to position", [new Command("MOVE", 120)]);
-        let response = rover.receiveMessage(message);
+        let response = rover.receiveMessage(new Message("Moving to position", [new Command("MOVE", 120)]));
         expect(rover.position).toEqual(120);
     });
 
